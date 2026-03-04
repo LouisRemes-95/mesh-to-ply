@@ -1,10 +1,13 @@
 [project]
-name = "mesh_to_.ply"
-version = "1.0.0"
-requires-python = ">=3.13"
+name = "mesh-to-ply"
+version = "1.0.1"
+requires-python = ">=3.10"
 dependencies = [
     "meshio>=5.3.5",
 ]
+
+[project.scripts]
+mesh-to-ply = "mesh_to_ply.cli:main"
 
 [build-system]
 requires = ["setuptools"]
