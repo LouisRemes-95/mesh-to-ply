@@ -29,14 +29,18 @@ wheels = [
 
 [[package]]
 name = "mesh-to-ply"
-version = "1.0.1"
+version = "1.0.2"
 source = { editable = "." }
 dependencies = [
     { name = "meshio" },
+    { name = "rich" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "meshio", specifier = ">=5.3.5" }]
+requires-dist = [
+    { name = "meshio", specifier = ">=5.3.5" },
+    { name = "rich", specifier = ">=14.3.3" },
+]
 
 [[package]]
 name = "meshio"

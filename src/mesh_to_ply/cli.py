@@ -1,5 +1,6 @@
 import argparse
 from pathlib import Path
+from rich.console import Console
 
 from mesh_to_ply.convert import convert
 
@@ -21,10 +22,19 @@ def main():
         help = "Path where the output needs to be saved (with file name and suffix)"
     )
 
+    console = Console()
+
+
+    console.print("[bold]mesh-to-ply[/bold]")
+
     args = parser.parse_args()
     out_path = args.out if args.out else args.input_path.with_suffix(".ply")
-    convert(args.input_path, out_path)
-    print(f"Wrote: {out_path}")
+
+    with console.status("[cyan]Converting to .ply..."):
+        convert(args.input_path, out_path)
+
+    console.print(f"[green]✔ Converting to .ply complete[/green]")
+    console.print(f"Wrote: {out_path.relative_to(Path.cwd())}")
 
 if __name__ == "__main__":
     main()
