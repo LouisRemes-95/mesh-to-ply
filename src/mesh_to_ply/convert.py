@@ -43,7 +43,7 @@ def convert(in_path, out_path: Path) -> None:
     meshio.write(out_path, surface_mesh, file_format="ply")
 
 def surface_from_mesh(points, tets: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    tris = tets[:, [[0,1,2],[0,3,1],[1,3,2],[0,2,3]]].reshape(-1,3)
+    tris = tets[:, [[0,2,1],[0,1,3],[1,2,3],[0,3,2]]].reshape(-1,3)
 
     _, inverse, counts = np.unique(np.sort(tris), axis = 0, return_inverse = True, return_counts = True)
     is_boundary_face = counts[inverse] == 1
@@ -51,7 +51,13 @@ def surface_from_mesh(points, tets: np.ndarray) -> tuple[np.ndarray, np.ndarray]
 
     surface_point_id = np.unique(boundary_tris.flatten())
 
-    lut = np.full(surface_point_id.max()+1, -1, dtype=np.int64)
+    lut = np.full(surface_point_id.max()+1, 0, dtype=smallest_uint_dtype(surface_point_id.size-1))
     lut[surface_point_id] = np.arange(surface_point_id.size)
 
-    return points[surface_point_id, :], lut[boundary_tris]
+    return points[surface_point_id, :], lut[boundary_tris].astype(np.int64)
+
+def smallest_uint_dtype(max_value: int):
+    for dtype in (np.uint8, np.uint16, np.uint32, np.uint64):
+        if max_value <= np.iinfo(dtype).max:
+            return dtype
+    raise ValueError("Value too large")
