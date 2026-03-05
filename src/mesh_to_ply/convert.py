@@ -2,7 +2,7 @@ from pathlib import Path
 import meshio
 import numpy as np
 
-def convert(in_path, out_path: Path, data_label: str = None) -> None:
+def convert(in_path, out_path: Path) -> None:
     """ 
     Convert a meshio mesh file (used for .mesh) to .ply
     Intended for a tetrahedral mesh with cell data representing region index
