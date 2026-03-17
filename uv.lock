@@ -29,7 +29,7 @@ wheels = [
 
 [[package]]
 name = "mesh-to-ply"
-version = "1.0.7"
+version = "1.0.8"
 source = { editable = "." }
 dependencies = [
     { name = "meshio" },

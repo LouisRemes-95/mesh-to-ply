@@ -1,6 +1,6 @@
 [project]
 name = "mesh-to-ply"
-version = "1.0.7"
+version = "1.0.8"
 requires-python = ">=3.10"
 dependencies = [
     "meshio>=5.3.5",
